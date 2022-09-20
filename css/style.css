@@ -26,3 +26,9 @@ main {
 .offcanvas-top{
     height: fit-content;
 }
+body{
+    color: white;
+}
+.offcanvas{
+    color: black;
+}
