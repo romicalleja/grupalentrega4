@@ -1,6 +1,5 @@
 let apiURL = "https://japceibal.github.io/japflix_api/movies-data.json";
 let moviesarray = [];
-let genrearray = [];
 let btn = document.getElementById("btnBuscar");
 
 function getJSONData(url) {
@@ -29,21 +28,20 @@ document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(apiURL).then(function (resultObj) {
     if (resultObj.status === "ok") {
       moviesarray = resultObj.data;
-      genrearray = resultObj.data.genre;
-      console.log(genrearray);
       showmovies();
     }
   });
 });
 
-// btn.addEventListener("click", function(e){
 function showmovies() {
   let movies = "";
   for (let i = 0; i < moviesarray.length; i++) {
     let movie = moviesarray[i];
     let stars = "";
     let starsn = "";
-    let genres = "";
+    let generos = "";
+    const d = new Date(movie.release_date);
+    let year = d.getFullYear();
     for (let s = 0; s < movie.vote_average; s++) {
       stars += `
             <p class="fa fa-star checked"></p>
@@ -54,14 +52,15 @@ function showmovies() {
             <p class="fa fa-star"></p>
             `;
     }
-    for (let g = 0; g < moviesarray.genre; g++) {
-      let genre = moviesarray.genre[g];
-
-      console.log(genre.name);
-      genres += `
-      <p>${genre.name}</p>
+    for (let g = 0; g < movie.genres.length; g++) {
+      console.log(movie.genres);
+      let genero = movie.genres[g];
+      generos += `
+      ${genero.name}
       `;
     }
+    // console.log(movie.genres)
+
     movies += `
 
 <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" >
@@ -73,17 +72,17 @@ function showmovies() {
 <div class="offcanvas-header">
   <h5 class="offcanvas-title" id="offcanvasTopLabel">${movie.title}</h5>
   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  
 </div>
 <div class="offcanvas-body">
   ${movie.overview}
-  <p>${movie.genre}</p>
-  </div>
-  <div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> more </button>
-<ul class="dropdown-menu">
-  <li><a class="dropdown-item">year:${movie.release_date}</a></li>
-  <li><a class="dropdown-item">runtime;${movie.runtime}</a></li>
+   <hr></hr> 
+  <p>${generos}</p>
+   </div>
+<div class="dropdown" >
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">more</button>
+<ul class="dropdown-menu >
+  <li><a class="dropdown-item">year:${year}</a></li>
+  <li><a class="dropdown-item">runtime:${movie.runtime}</a></li>
   <li><a class="dropdown-item">budget:${movie.budget}</a></li>
   <li><a class="dropdown-item">revenue:${movie.revenue}</a></li>
 </ul>
