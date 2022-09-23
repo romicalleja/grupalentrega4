@@ -1,6 +1,7 @@
 let apiURL = "https://japceibal.github.io/japflix_api/movies-data.json";
 let moviesarray = [];
 let btn = document.getElementById("btnBuscar");
+let busq=document.getElementById("inputBuscar");
 
 function getJSONData(url) {
   let result = {};
