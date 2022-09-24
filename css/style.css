@@ -32,3 +32,7 @@ body{
 .offcanvas{
     color: black;
 }
+
+.hide{
+    display: none;
+}

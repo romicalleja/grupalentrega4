@@ -1,4 +1,5 @@
 let apiURL = "https://japceibal.github.io/japflix_api/movies-data.json";
+let allmoviesarray=[];
 let moviesarray = [];
 let btn = document.getElementById("btnBuscar");
 let busq=document.getElementById("inputBuscar");
@@ -28,8 +29,7 @@ function getJSONData(url) {
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(apiURL).then(function (resultObj) {
     if (resultObj.status === "ok") {
-      moviesarray = resultObj.data;
-      showmovies();
+      allmoviesarray = resultObj.data;
     }
   });
 });
@@ -64,7 +64,7 @@ function showmovies() {
 
     movies += `
 
-<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" >
+<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="movie" >
 <h4>${movie.title}</h4>
 <p>${movie.tagline}${stars + starsn}</p>
 </div>
@@ -94,3 +94,31 @@ function showmovies() {
     document.getElementById("lista").innerHTML = movies;
   }
 }
+
+btn.addEventListener("click",function(e){
+  // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
+  let busqueda=busq.value
+  const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
+  let moviesarray = allmoviesarray.filter(contains)
+  showmovies()
+   })
+
+
+
+
+
+   //DISCARDED
+ // let movie = moviesarray[i];
+  // busqueda=busq.value
+  // let isVisible= movie.name.includes(busqueda) || movie.genres.includes(busqueda) || movie.tagline.includes(busqueda) || movie.overview.includes(busqueda)
+  // showmovies();
+  // document.getElementById("movie").classList.toggle("hide", !isVisible)  
+
+
+// })
+// const name = movie.name.includes(busqueda)|| movie.genres.includes(busqueda) || movie.tagline.includes(busqueda)
+
+
+//FUENTES
+ //https://blog.bitsrc.io/8-methods-to-search-javascript-arrays-fadbce8bea51
+ //https://flexiple.com/javascript/javascript-filter-array/
