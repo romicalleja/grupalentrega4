@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (resultObj.status === "ok") {
       allmoviesarray = resultObj.data;
     }
-  });
+  });   
+  
+
 });
 
 function showmovies() {
@@ -43,12 +45,12 @@ function showmovies() {
     let generos = "";
     const d = new Date(movie.release_date);
     let year = d.getFullYear();
-    for (let s = 0; s < movie.vote_average; s++) {
+    for (let s = 0; s < Math.round(movie.vote_average/2); s++) {
       stars += `
             <p class="fa fa-star checked"></p>
             `;
     }
-    for (let n = movie.vote_average; n < 10; n++) {
+    for (let n = Math.round(movie.vote_average/2); n < 5; n++) {
       starsn += `
             <p class="fa fa-star"></p>
             `;
@@ -95,13 +97,13 @@ function showmovies() {
   }
 }
 
-btn.addEventListener("click",function(e){
-  // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
-  let busqueda=busq.value
-  const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
-  let moviesarray = allmoviesarray.filter(contains)
-  showmovies()
-   })
+// btn.addEventListener("click",function(e){
+//   // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
+//   let busqueda=busq.value
+//   const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
+//   let moviesarray = allmoviesarray.filter(contains)
+//   showmovies()
+//    })
 
 
 
