@@ -29,12 +29,14 @@ function getJSONData(url) {
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(apiURL).then(function (resultObj) {
     if (resultObj.status === "ok") {
-      allmoviesarray = resultObj.data;
+      moviesarray = resultObj.data;
+      showmovies()
     }
   });   
   
 
 });
+
 
 function showmovies() {
   let movies = "";
@@ -97,13 +99,17 @@ function showmovies() {
   }
 }
 
-// btn.addEventListener("click",function(e){
-//   // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
-//   let busqueda=busq.value
-//   const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
-//   let moviesarray = allmoviesarray.filter(contains)
-//   showmovies()
-//    })
+
+
+
+
+  // btn.addEventListener("click",function(e){
+  // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
+  // let busqueda=busq.value
+   // const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
+  // moviesarray = allmoviesarray.filter(contains)
+  // showmovies()
+   // })
 
 
 
