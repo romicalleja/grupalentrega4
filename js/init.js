@@ -2,7 +2,7 @@ let apiURL = "https://japceibal.github.io/japflix_api/movies-data.json";
 let allmoviesarray=[];
 let moviesarray = [];
 let btn = document.getElementById("btnBuscar");
-let busq=document.getElementById("inputBuscar");
+let busq = document.getElementById("inputBuscar");
 
 function getJSONData(url) {
   let result = {};
@@ -97,20 +97,21 @@ function showmovies() {
 `;
     document.getElementById("lista").innerHTML = movies;
   }
+  btn.addEventListener("click",function(e){
+    // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
+     let busqueda = busq.value
+      const contains = movies.name.includes(title)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
+   //  moviesarray = allmoviesarray.filter(contains)
+   //  showmovies()
+    //  })
+  
 }
 
 
 
 
 
-   btn.addEventListener("click",function(e){
-  // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
-   let busqueda=busq.value
-    const contains = movies.name.includes(lion)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
-   moviesarray = allmoviesarray.filter(contains)
-   showmovies()
-    })
-
+  
 
 
 
