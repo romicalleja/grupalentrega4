@@ -96,7 +96,8 @@ function showmovies() {
 </div>
 `;
     document.getElementById("lista").innerHTML = movies;
-  }
+  }}
+  
   btn.addEventListener("click",function(e){
     // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
      let busqueda = busq.value
@@ -105,7 +106,7 @@ function showmovies() {
    //  showmovies()
     //  })
   
-}
+})
 
 
 
