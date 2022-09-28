@@ -97,15 +97,19 @@ function showmovies() {
 `;
     document.getElementById("lista").innerHTML = movies;
   }
-  btn.addEventListener("click",function(e){
+//  btn.addEventListener("click",function(e){
     // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
-     let busqueda = busq.value
-      const contains = movies.name.includes(title)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
+  //   let busqueda = busq.value
+   //   const contains = movies.name.includes(title)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
    //  moviesarray = allmoviesarray.filter(contains)
    //  showmovies()
     //  })
-  
-}
+  console.log(
+    moviesarray.filter(({title}) => {
+      return title.toLowerCase().indexof("ba".toLocaleLowerCase()) !== -1;
+    }
+  )
+)}
 
 
 
