@@ -25,7 +25,6 @@ function getJSONData(url) {
       return result;
     });
 }
-    console.log(response);
 
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(apiURL).then(function (resultObj) {
