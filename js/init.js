@@ -1,5 +1,5 @@
 let apiURL = "https://japceibal.github.io/japflix_api/movies-data.json";
-let allmoviesarray=[];
+let allmoviesarray = [];
 let moviesarray = [];
 let btn = document.getElementById("btnBuscar");
 let busq = document.getElementById("inputBuscar");
@@ -29,120 +29,121 @@ function getJSONData(url) {
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(apiURL).then(function (resultObj) {
     if (resultObj.status === "ok") {
-      moviesarray = resultObj.data;
-      showmovies()
+      allmoviesarray = resultObj.data;
+      showmovies();
     }
-  });   
-  
-
+  });
 });
 
+function movieInfo(movie){
+  let stars = "";
+  let starsn = "";
+  let generos = "";
+  const release_date = new Date(movie.release_date);
+  let year = release_date.getFullYear();
 
-function showmovies() {
-  let movies = "";
-  for (let i = 0; i < moviesarray.length; i++) {
-    let movie = moviesarray[i];
-    let stars = "";
-    let starsn = "";
-    let generos = "";
-    const d = new Date(movie.release_date);
-    let year = d.getFullYear();
-    for (let s = 0; s < Math.round(movie.vote_average/2); s++) {
+    for (let s = 0; s < Math.round(movie.vote_average / 2); s++) {
       stars += `
             <p class="fa fa-star checked"></p>
             `;
     }
-    for (let n = Math.round(movie.vote_average/2); n < 5; n++) {
+
+    for (let n = Math.round(movie.vote_average / 2); n < 5; n++) {
       starsn += `
             <p class="fa fa-star"></p>
             `;
     }
+
     for (let g = 0; g < movie.genres.length; g++) {
-      console.log(movie.genres);
+   //   console.log(movie.genres);
       let genero = movie.genres[g];
       generos += `
       ${genero.name}
       `;
     }
-    // console.log(movie.genres)
-
-    movies += `
-
-<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="movie" >
-<h4>${movie.title}</h4>
-<p>${movie.tagline}${stars + starsn}</p>
-</div>
-<div>
-<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-<div class="offcanvas-header">
-  <h5 class="offcanvas-title" id="offcanvasTopLabel">${movie.title}</h5>
-  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-</div>
-<div class="offcanvas-body">
-  ${movie.overview}
-   <hr></hr> 
-  <p>${generos}</p>
-   </div>
-<div class="dropdown" >
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">more</button>
-<ul class="dropdown-menu >
-  <li><a class="dropdown-item">year:${year}</a></li>
-  <li><a class="dropdown-item">runtime:${movie.runtime}</a></li>
-  <li><a class="dropdown-item">budget:${movie.budget}</a></li>
-  <li><a class="dropdown-item">revenue:${movie.revenue}</a></li>
-</ul>
-</div>
-</div>
-</div>
-`;
-    document.getElementById("lista").innerHTML = movies;
-<<<<<<< HEAD
-  }
-//  btn.addEventListener("click",function(e){
-=======
-  }}
-  
-  btn.addEventListener("click",function(e){
->>>>>>> af41a68d6b32af383c398c74ca8eee2b16bcc690
-    // const contains nos da los parametros de filter, creamos un nuevo array filtado por los resultados, este es el array que se carga en show movies()
-  //   let busqueda = busq.value
-   //   const contains = movies.name.includes(title)|| movies.genres.name.includes(busqueda) || movies.tagline.includes(busqueda)
-   //  moviesarray = allmoviesarray.filter(contains)
-   //  showmovies()
-    //  })
-<<<<<<< HEAD
-  console.log(
-    moviesarray.filter(({title}) => {
-      return title.toLowerCase().indexof("ba".toLocaleLowerCase()) !== -1;
+    
+    return {
+     stars, starsn, generos, year, release_date
     }
-  )
-)}
-=======
+}
+
+
+
+
+busq.addEventListener("input", function (e) {
+  let valorbusqueda = e.target.value;
+ // console.log(valorbusqueda);
+  // const movieExist = allmoviesarray.title.includes(valorbusqueda)
+  // const movieExist = allmoviesarray.title.includes(valorbusqueda)
+  const movieExist = console.log(allmoviesarray.title);
+
+
+  for (let i = 0; i < allmoviesarray.length; i++) {
+    const movie = allmoviesarray[i];
+    
   
-})
->>>>>>> af41a68d6b32af383c398c74ca8eee2b16bcc690
+  if  (valorbusqueda.includes(movie.title)){
+ //   console.log("LAPELIES", movie.title);
+    console.table("Movie", movie);
+    cartelera(movie);
+  }
+
+  }
 
 
+});
 
-
-
+function cartelera(movie){
   
+  
+  const {stars, starsn, generos, year} = movieInfo(movie); 
+
+  const catalogo = `
+  <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="movie" >
+  <h4>${movie.title}</h4>
+  <p>${movie.tagline}${stars + starsn}</p>
+  </div>
+  <div>
+  <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTopLabel">${movie.title}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    ${movie.overview}
+     <hr></hr> 
+    <p>${generos}</p>
+     </div>
+  <div class="dropdown" >
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">more</button>
+  <ul class="dropdown-menu >
+    <li><a class="dropdown-item">year:${year}</a></li>
+    <li><a class="dropdown-item">runtime:${movie.runtime}</a></li>
+    <li><a class="dropdown-item">budget:${movie.budget}</a></li>
+    <li><a class="dropdown-item">revenue:${movie.revenue}</a></li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  `;
+      document.getElementById("lista").innerHTML = catalogo;
+}
 
 
 
 
-   //DISCARDED
- // let movie = moviesarray[i];
-  // busqueda=busq.value
-  // let isVisible= movie.name.includes(busqueda) || movie.genres.includes(busqueda) || movie.tagline.includes(busqueda) || movie.overview.includes(busqueda)
-  // showmovies();
-  // document.getElementById("movie").classList.toggle("hide", !isVisible)  
 
+
+//DISCARDED
+// let movie = moviesarray[i];
+// busqueda=busq.value
+// let isVisible= movie.name.includes(busqueda) || movie.genres.includes(busqueda) || movie.tagline.includes(busqueda) || movie.overview.includes(busqueda)
+// showmovies();
+// document.getElementById("movie").classList.toggle("hide", !isVisible)
 
 // })
 // const name = movie.name.includes(busqueda)|| movie.genres.includes(busqueda) || movie.tagline.includes(busqueda)
 
-
 //FUENTES
- //https://blog.bitsrc.io/8-methods-to-search-javascript-arrays-fadbce8bea51
- //https://flexiple.com/javascript/javascript-filter-array/
+//https://blog.bitsrc.io/8-methods-to-search-javascript-arrays-fadbce8bea51
+//https://flexiple.com/javascript/javascript-filter-array/
