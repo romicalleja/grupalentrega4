@@ -54,6 +54,14 @@ function movieInfo(movie) {
             <p class="fa fa-star"></p>
             `;
   }
+
+  // movie.genres
+  //   .filter((fil) => fil.id != undefined)
+  //   .forEach((gen) => {
+  //     generos += `
+  //    ${gen.name}
+  //     `;
+  //  });
   let genres = movie.genres.length || [];
 
   for (let g = 0; g < genres; g++) {
@@ -102,10 +110,51 @@ function buscador(valorbusqueda) {
       //  let peli = allmoviesarray.findIndex(indice);
       console.log(findedTitle);
       encontrados.push(findedTitle);
+      // return findedTitle;
     }
-    return existe;
   });
-  console.log(valTitle);
+
+  /*let valGenre = coleccion.genres.map((genres) => {
+    const existe = byGenres(genres, valorbusqueda);
+    console.log("asdasd", existe)
+    if (existe[0]) {
+      const genVal = (movie) => movie.genres.name == valorbusqueda;
+      let findedGens = allmoviesarray.find(genVal);
+      
+      //  let peli = allmoviesarray.findIndex(indice);
+      console.log(findedGens);
+      return findedGens;
+    }
+  });
+  encontrados.push(valGenre);
+*/
+  let valTagline = coleccion.tagline.map((tagline) => {
+    const existe = byTagline(tagline, valorbusqueda);
+    if (existe) {
+      const taglineVal = (movie) => movie.tagline == tagline;
+      let findedTag = allmoviesarray.find(taglineVal);
+
+      //  let peli = allmoviesarray.findIndex(indice);
+      console.log(findedTag);
+      encontrados.push(findedTag);
+      //   return findedTag;
+    }
+  });
+
+  let valOverview = coleccion.overview.map((overview) => {
+    const existe = byOverview(overview, valorbusqueda);
+    if (existe) {
+      const overVal = (movie) => movie.overview == overview;
+      let findedOver = allmoviesarray.find(overVal);
+
+      //  let peli = allmoviesarray.findIndex(indice);
+      console.log(findedOver);
+      encontrados.push(findedOver);
+
+      // return findedTitle;
+    }
+  });
+
   return encontrados;
 }
 
@@ -127,32 +176,34 @@ function byTitle(title, valorbusqueda) {
     return peliencontrada;
   }
 }
-function byGenres(movie, valorbusqueda) {
-  movie.genres.forEach((gen) => {
-    let peliencontrada = gen.name
+function byGenres(gens, valorbusqueda) {
+  let genExist = gens.map((gen) => {
+    let genEncontrado = gen.name
       .toLowerCase()
       .includes(valorbusqueda.toLowerCase());
-    if (peliencontrada) {
-      console.log("movie gen:", gen.name);
-      return peliencontrada;
+    if (genEncontrado) {
+      console.log("movie gen:", genEncontrado);
+      return genEncontrado;
     }
   });
+  return genExist.filter((gen) => gen == true);
 }
-function byOverview(movie, valorbusqueda) {
-  let peliencontrada = movie.overview
+
+function byOverview(overview, valorbusqueda) {
+  let peliencontrada = overview
     .toLowerCase()
     .includes(valorbusqueda.toLowerCase());
   if (peliencontrada) {
-    console.log("movie OV:", peliencontrada.overview);
+    console.log("movie OV:", peliencontrada);
     return peliencontrada;
   }
 }
-function byTagline(movie, valorbusqueda) {
-  let peliencontrada = movie.tagline
+function byTagline(tagline, valorbusqueda) {
+  let peliencontrada = tagline
     .toLowerCase()
     .includes(valorbusqueda.toLowerCase());
   if (peliencontrada) {
-    console.log("movie TAG:", peliencontrada.tagline);
+    console.log("movie TAG:", peliencontrada);
     return peliencontrada;
   }
 }
@@ -181,6 +232,11 @@ function cartelera(movies) {
   let catalogo = "";
 
   movies.forEach((movie) => {
+    console.log(movie);
+    if (!movie) {
+      console.log("noesmovie", movie);
+      return;
+    }
     const { stars, starsn, generos, year } = movieInfo(movie);
 
     catalogo += `
