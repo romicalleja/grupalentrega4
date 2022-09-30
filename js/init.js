@@ -108,7 +108,7 @@ function buscador(valorbusqueda) {
       let findedTitle = allmoviesarray.find(titleVal);
 
       //  let peli = allmoviesarray.findIndex(indice);
-      console.log(findedTitle);
+      // console.log(findedTitle);
       encontrados.push(findedTitle);
       // return findedTitle;
     }
@@ -135,7 +135,7 @@ function buscador(valorbusqueda) {
       let findedTag = allmoviesarray.find(taglineVal);
 
       //  let peli = allmoviesarray.findIndex(indice);
-      console.log(findedTag);
+      // console.log(findedTag);
       encontrados.push(findedTag);
       //   return findedTag;
     }
@@ -148,7 +148,7 @@ function buscador(valorbusqueda) {
       let findedOver = allmoviesarray.find(overVal);
 
       //  let peli = allmoviesarray.findIndex(indice);
-      console.log(findedOver);
+      // console.log(findedOver);
       encontrados.push(findedOver);
 
       // return findedTitle;
@@ -159,11 +159,13 @@ function buscador(valorbusqueda) {
 }
 
 btn.addEventListener("click", function (e) {
+  if (busq.value.length> 0){
   let valorbusqueda = busq.value;
 
   let pelisEncontradas = buscador(valorbusqueda);
   cartelera(pelisEncontradas);
-  console.log(pelisEncontradas);
+  // console.log(pelisEncontradas);
+  }
 });
 
 function byTitle(title, valorbusqueda) {
@@ -171,7 +173,7 @@ function byTitle(title, valorbusqueda) {
     .toLowerCase()
     .includes(valorbusqueda.toLowerCase());
   if (peliencontrada) {
-    console.log("movie title:", peliencontrada);
+    // console.log("movie title:", peliencontrada);
 
     return peliencontrada;
   }
@@ -182,7 +184,7 @@ function byGenres(gens, valorbusqueda) {
       .toLowerCase()
       .includes(valorbusqueda.toLowerCase());
     if (genEncontrado) {
-      console.log("movie gen:", genEncontrado);
+      // console.log("movie gen:", genEncontrado);
       return genEncontrado;
     }
   });
@@ -194,7 +196,7 @@ function byOverview(overview, valorbusqueda) {
     .toLowerCase()
     .includes(valorbusqueda.toLowerCase());
   if (peliencontrada) {
-    console.log("movie OV:", peliencontrada);
+    // console.log("movie OV:", peliencontrada);
     return peliencontrada;
   }
 }
@@ -203,7 +205,7 @@ function byTagline(tagline, valorbusqueda) {
     .toLowerCase()
     .includes(valorbusqueda.toLowerCase());
   if (peliencontrada) {
-    console.log("movie TAG:", peliencontrada);
+    // console.log("movie TAG:", peliencontrada);
     return peliencontrada;
   }
 }
@@ -232,7 +234,7 @@ function cartelera(movies) {
   let catalogo = "";
 
   movies.forEach((movie) => {
-    console.log(movie);
+    // console.log(movie);
     if (!movie) {
       console.log("noesmovie", movie);
       return;
@@ -240,48 +242,31 @@ function cartelera(movies) {
     const { stars, starsn, generos, year } = movieInfo(movie);
 
     catalogo += `
-    <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="movie" >
+    <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="movie">
     <h4>${movie.title}</h4>
     <p>${movie.tagline}${stars + starsn}</p>
     </div>
-    <div>
     <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasTopLabel">${movie.title}</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      ${movie.overview}
-       <hr></hr> 
-      <p>${generos}</p>
-       </div>
-    <div class="dropdown" >
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">more</button>
-    <ul class="dropdown-menu >
-      <li><a class="dropdown-item">year:${year}</a></li>
-      <li><a class="dropdown-item">runtime:${movie.runtime}</a></li>
-      <li><a class="dropdown-item">budget:${movie.budget}</a></li>
-      <li><a class="dropdown-item">revenue:${movie.revenue}</a></li>
-    </ul>
-    </div>
-    </div>
-    </div>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTopLabel">${movie.title}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+${movie.overview}<hr></hr> 
+    <p>${generos}</p>
+     </div>
+  <div class="dropdown" >
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">more</button>
+  <ul class="dropdown-menu >
+    <li><a class="dropdown-item">year:${year}</a></li>
+    <li><a class="dropdown-item">runtime:${movie.runtime}</a></li>
+    <li><a class="dropdown-item">budget:${movie.budget}</a></li>
+    <li><a class="dropdown-item">revenue:${movie.revenue}</a></li>
+  </ul>
+  </div>
+  </div>
     `;
 
     document.getElementById("lista").innerHTML = catalogo;
-  });
+  })
 }
-
-//DISCARDED
-// let movie = moviesarray[i];
-// busqueda=busq.value
-// let isVisible= movie.name.includes(busqueda) || movie.genres.includes(busqueda) || movie.tagline.includes(busqueda) || movie.overview.includes(busqueda)
-// showmovies();
-// document.getElementById("movie").classList.toggle("hide", !isVisible)
-
-// })
-// const name = movie.name.includes(busqueda)|| movie.genres.includes(busqueda) || movie.tagline.includes(busqueda)
-
-//FUENTES
-//https://blog.bitsrc.io/8-methods-to-search-javascript-arrays-fadbce8bea51
-//https://flexiple.com/javascript/javascript-filter-array/
